@@ -1,0 +1,9 @@
+services:
+  php:
+    container_name: chocobo-php
+    build:
+        context: .
+        dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./:/app
