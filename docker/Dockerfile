@@ -7,7 +7,7 @@ RUN docker-php-ext-enable xdebug
 
 WORKDIR /app
 
-COPY . /app
+COPY .. /app
 
 CMD ["php", "-S", "0.0.0.0:80", "-t", "/app"]
 
