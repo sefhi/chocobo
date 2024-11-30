@@ -60,3 +60,7 @@ test/coverage:
 # 🐚 Shell
 bash:
 	$(DOCKER_COMPOSE) exec -it $(CONTAINER) /bin/bash
+
+# 🐦 Run PHP ChocoboBilly
+run-chocoBilly:
+	@$(EXEC_PHP) src/ChocoBilly/ChocoScript.php $(inputFilePath) $(outputFilePath)

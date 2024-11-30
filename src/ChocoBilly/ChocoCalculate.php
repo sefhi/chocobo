@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\ChocoBilly;
 
-final class CalculateChoco
+final class ChocoCalculate
 {
     private const int MAX_WEIGHT = PHP_INT_MAX;
 
-    public function calculateMinimumChocobos(int $weight, array $weightsAvailable): array
+    public function combinationMinimumWeight(int $weight, array $weightsAvailable): array
     {
         $count = $weight + 1;
         $minWeightAvailable = array_fill(0, $count, self::MAX_WEIGHT);

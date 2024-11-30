@@ -8,7 +8,7 @@ final readonly class ChocoBilly
 {
 
     public function __construct(
-        private CalculateChoco $calculate
+        private ChocoCalculate $calculate
     )
     {
     }
@@ -27,7 +27,7 @@ final readonly class ChocoBilly
             $weightsAvailable         = explode(',', $contentArr[$positionWeightsAvailable]);
             $weightExpected           = $contentArr[$positionWeightExpected];
 
-            $resultCombination = $this->calculate->calculateMinimumChocobos(
+            $resultCombination = $this->calculate->combinationMinimumWeight(
                 weight: (int)$weightExpected,
                 weightsAvailable: $weightsAvailable
             );

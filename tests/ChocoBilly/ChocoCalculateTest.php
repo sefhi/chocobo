@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\ChocoBilly;
 
-use App\ChocoBilly\CalculateChoco;
+use App\ChocoBilly\ChocoCalculate;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class CalculateChocoTest extends TestCase
+final class ChocoCalculateTest extends TestCase
 {
     public static function provideData(): \Iterator
     {
@@ -48,13 +48,13 @@ final class CalculateChocoTest extends TestCase
     {
         // WHEN
 
-        $calculateChocobo = new CalculateChoco();
+        $calculateChocobo = new ChocoCalculate();
 
         // THEN
 
         self::assertEquals(
             $minimumChocobosExpected,
-            $calculateChocobo->calculateMinimumChocobos($weight, $chocobos)
+            $calculateChocobo->combinationMinimumWeight($weight, $chocobos)
         );
     }
 }
