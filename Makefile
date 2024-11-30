@@ -28,12 +28,12 @@ composer-update cu: ACTION=update $(module)
 
 composer-require cr: ACTION=require $(module)
 
-composer composer-install ci composer-update composer-require cr: create_env_file
+composer composer-install ci composer-update composer-require cr:
 	$(COMPOSER) $(ACTION) \
 			--ignore-platform-reqs \
 			--no-ansi
 # 🐳 Docker Compose
-start:
+start: deps
 	@echo "🚀 Start!!!"
 	@$(DOCKER_COMPOSE) up -d
 stop:
