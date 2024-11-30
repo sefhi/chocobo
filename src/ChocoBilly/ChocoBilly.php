@@ -15,29 +15,51 @@ final readonly class ChocoBilly
 
     public function __invoke(string $inputFilePath, string $outputFilePath): void
     {
-        $contentArr  = file($inputFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $caseNumbers = (int)array_shift($contentArr);
+//        $contentArr  = file($inputFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+//        $numCases    = (int)array_shift($contentArr);
+//
+//        $result = [];
+//
+//        for ($i = 0; $i < $numCases; $i++) {
+//
+//            $positionWeightsAvailable = $i*2;
+//            $positionWeightExpected   = $i*2 + 1;
+//            $weightsAvailable         = explode(',', $contentArr[$positionWeightsAvailable]);
+//            $weightExpected           = $contentArr[$positionWeightExpected];
+//
+//            $resultCombination = $this->calculate->combinationMinimumWeight(
+//                weight: (int)$weightExpected,
+//                weightsAvailable: $weightsAvailable
+//            );
+//
+//            $result[] = count($resultCombination) . ':' . implode(',', $resultCombination);
+//
+//        }
+//
+//        $resultContent = implode(PHP_EOL, $result);
+//        file_put_contents($outputFilePath, $resultContent);
 
-        $result = [];
-
-        for ($i = 0; $i < $caseNumbers; $i++) {
-
-            $positionWeightsAvailable = $i*2;
-            $positionWeightExpected   = $i*2 + 1;
-            $weightsAvailable         = explode(',', $contentArr[$positionWeightsAvailable]);
-            $weightExpected           = $contentArr[$positionWeightExpected];
-
+        foreach ($this->readCases($inputFilePath) as $case) {
+            [$weight, $weightsAvailable] = $case;
             $resultCombination = $this->calculate->combinationMinimumWeight(
-                weight: (int)$weightExpected,
+                weight: $weight,
                 weightsAvailable: $weightsAvailable
             );
-
-            $result[] = count($resultCombination) . ':' . implode(',', $resultCombination);
-
+            $lineResult = count($resultCombination) . ':' . implode(',', $resultCombination). PHP_EOL;
+            file_put_contents($outputFilePath, $lineResult, FILE_APPEND);
         }
 
-        $resultContent = implode(PHP_EOL, $result);
-        file_put_contents($outputFilePath, $resultContent);
+    }
 
+    public function readCases(string $inputFile): \Generator
+    {
+        $lines = new \SplFileObject($inputFile);
+        $numCases = (int)trim($lines->fgets());
+
+        for ($i = 0; $i < $numCases; $i++) {
+            $weightsAvailable = explode(',', trim($lines->fgets()));
+            $weight = (int)trim($lines->fgets());
+            yield [$weight, $weightsAvailable];
+        }
     }
 }

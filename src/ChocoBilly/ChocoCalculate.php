@@ -12,28 +12,32 @@ final class ChocoCalculate
     {
         $count = $weight + 1;
         $minWeightAvailable = array_fill(0, $count, self::MAX_WEIGHT);
-        $combinations = array_fill(0, $count, []);
+        $prevWeight = array_fill(0, $count, null);
 
         $minWeightAvailable[0] = 0;
 
         for ($i = 1; $i <= $weight; $i++) {
             foreach ($weightsAvailable as $weightAvailable) {
-
                 if ($i >= $weightAvailable && $minWeightAvailable[$i - $weightAvailable] != self::MAX_WEIGHT) {
-
                     $newCount = $minWeightAvailable[$i - $weightAvailable] + 1;
 
                     if ($minWeightAvailable[$i] > $newCount) {
-
                         $minWeightAvailable[$i] = $newCount;
-                        $combinations[$i] = $combinations[$i - $weightAvailable];
-                        $combinations[$i][] = $weightAvailable;
+                        $prevWeight[$i] = $weightAvailable;
                     }
                 }
             }
         }
 
-        sort($combinations[$weight]);
-        return $combinations[$weight];
+        $result = [];
+        $currentWeight = $weight;
+
+        while ($currentWeight > 0 && $prevWeight[$currentWeight] !== null) {
+            $result[] = $prevWeight[$currentWeight];
+            $currentWeight -= $prevWeight[$currentWeight];
+        }
+
+        sort($result); //
+        return $result;
     }
 }
