@@ -10,8 +10,9 @@ final class CalculateChoco
 
     public function calculateMinimumChocobos(int $weight, array $chocobos): array
     {
-        $minChocobos  = array_fill(0, $weight + 1, self::MAX_WEIGHT);
-        $combinations = array_fill(0, $weight + 1, []);
+        $count = $weight + 1;
+        $minChocobos  = array_fill(0, $count, self::MAX_WEIGHT);
+        $combinations = array_fill(0, $count, []);
 
         $minChocobos[0] = 0;
 
