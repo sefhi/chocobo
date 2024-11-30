@@ -25,7 +25,7 @@ final class ChocoBilly
 
             $resultCombination = $calculate->calculateMinimumChocobos(
                 weight: (int)$weightExpected,
-                chocobos: $weightsAvailable
+                weightsAvailable: $weightsAvailable
             );
 
             $result[] = count($resultCombination) . ':' . implode(',', $resultCombination);

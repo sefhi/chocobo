@@ -8,26 +8,26 @@ final class CalculateChoco
 {
     private const int MAX_WEIGHT = PHP_INT_MAX;
 
-    public function calculateMinimumChocobos(int $weight, array $chocobos): array
+    public function calculateMinimumChocobos(int $weight, array $weightsAvailable): array
     {
         $count = $weight + 1;
-        $minChocobos  = array_fill(0, $count, self::MAX_WEIGHT);
+        $minWeightAvailable  = array_fill(0, $count, self::MAX_WEIGHT);
         $combinations = array_fill(0, $count, []);
 
-        $minChocobos[0] = 0;
+        $minWeightAvailable[0] = 0;
 
         for ($i = 1; $i <= $weight; $i++) {
-            foreach ($chocobos as $chocoboWeight) {
+            foreach ($weightsAvailable as $weightAvailable) {
 
-                if ($i >= $chocoboWeight && $minChocobos[$i - $chocoboWeight] != self::MAX_WEIGHT) {
+                if ($i >= $weightAvailable && $minWeightAvailable[$i - $weightAvailable] != self::MAX_WEIGHT) {
 
-                    $newCount = $minChocobos[$i - $chocoboWeight] + 1;
+                    $newCount = $minWeightAvailable[$i - $weightAvailable] + 1;
 
-                    if ($minChocobos[$i] > $newCount) {
+                    if ($minWeightAvailable[$i] > $newCount) {
 
-                        $minChocobos[$i]    = $newCount;
-                        $combinations[$i]   = $combinations[$i - $chocoboWeight];
-                        $combinations[$i][] = $chocoboWeight;
+                        $minWeightAvailable[$i]    = $newCount;
+                        $combinations[$i]   = $combinations[$i - $weightAvailable];
+                        $combinations[$i][] = $weightAvailable;
                     }
                 }
             }
