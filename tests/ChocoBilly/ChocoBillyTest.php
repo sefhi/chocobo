@@ -2,6 +2,7 @@
 
 namespace ChocoBilly;
 
+use App\ChocoBilly\CalculateChoco;
 use App\ChocoBilly\ChocoBilly;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -13,6 +14,7 @@ class ChocoBillyTest extends TestCase
     protected function setUp(): void
     {
         $this->outputFilePath = __DIR__ . '/outputTest.txt';
+        $this->calculate = new CalculateChoco();
     }
 
     #[Test]
@@ -22,13 +24,12 @@ class ChocoBillyTest extends TestCase
         // GIVEN
 
         $inputFilePath  = __DIR__ . '/inputTest.txt';
-
         $outputFilePathExpected = __DIR__ . '/outputTestExpected.txt';
 
         // WHEN
 
-        $chocoBilly = new ChocoBilly();
-        $output = ($chocoBilly)($inputFilePath, $this->outputFilePath);
+        $chocoBilly = new ChocoBilly($this->calculate);
+        ($chocoBilly)($inputFilePath, $this->outputFilePath);
 
         // THEN
 

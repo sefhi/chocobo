@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace App\ChocoBilly;
 
-final class ChocoBilly
+final readonly class ChocoBilly
 {
+
+    public function __construct(
+        private CalculateChoco $calculate
+    )
+    {
+    }
 
     public function __invoke(string $inputFilePath, string $outputFilePath): void
     {
@@ -21,9 +27,7 @@ final class ChocoBilly
             $weightsAvailable         = explode(',', $contentArr[$positionWeightsAvailable]);
             $weightExpected           = $contentArr[$positionWeightExpected];
 
-            $calculate = new CalculateChoco();
-
-            $resultCombination = $calculate->calculateMinimumChocobos(
+            $resultCombination = $this->calculate->calculateMinimumChocobos(
                 weight: (int)$weightExpected,
                 weightsAvailable: $weightsAvailable
             );
