@@ -3,3 +3,4 @@
 vendor
 .phpunit.cache
 tests/ChocoBilly/outputTest.txt
+data/*
