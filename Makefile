@@ -33,9 +33,10 @@ composer composer-install ci composer-update composer-require cr:
 			--ignore-platform-reqs \
 			--no-ansi
 # 🐳 Docker Compose
-start: deps
+start:
 	@echo "🚀 Start!!!"
 	@$(DOCKER_COMPOSE) up -d
+	make deps
 stop:
 	$(DOCKER_COMPOSE) stop
 down:
