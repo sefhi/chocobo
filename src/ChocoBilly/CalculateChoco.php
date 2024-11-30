@@ -11,7 +11,7 @@ final class CalculateChoco
     public function calculateMinimumChocobos(int $weight, array $weightsAvailable): array
     {
         $count = $weight + 1;
-        $minWeightAvailable  = array_fill(0, $count, self::MAX_WEIGHT);
+        $minWeightAvailable = array_fill(0, $count, self::MAX_WEIGHT);
         $combinations = array_fill(0, $count, []);
 
         $minWeightAvailable[0] = 0;
@@ -25,8 +25,8 @@ final class CalculateChoco
 
                     if ($minWeightAvailable[$i] > $newCount) {
 
-                        $minWeightAvailable[$i]    = $newCount;
-                        $combinations[$i]   = $combinations[$i - $weightAvailable];
+                        $minWeightAvailable[$i] = $newCount;
+                        $combinations[$i] = $combinations[$i - $weightAvailable];
                         $combinations[$i][] = $weightAvailable;
                     }
                 }
