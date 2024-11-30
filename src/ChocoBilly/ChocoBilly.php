@@ -9,16 +9,29 @@ final class ChocoBilly
 
     public function __invoke(string $inputFilePath, string $outputFilePath): void
     {
-        $contentArr  = file($inputFilePath);
-        $caseNumbers = array_shift($contentArr);
+        $contentArr  = file($inputFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $caseNumbers = (int)array_shift($contentArr);
 
-//        $result = $this->calculateChoco->calculateMinimumChocobos(
-//            weight: 6,
-//            chocobos: [2,3]
-//        );
         $result = [];
-        $result[] = '2:3,3';
-        $result[] = '2:1,2';
+
+        for ($i = 0; $i < $caseNumbers; $i++) {
+
+            $positionWeightsAvailable = $i*2;
+            $positionWeightExpected   = $i*2 + 1;
+            $weightsAvailable         = explode(',', $contentArr[$positionWeightsAvailable]);
+            $weightExpected           = $contentArr[$positionWeightExpected];
+
+            $calculate = new CalculateChoco();
+
+            $resultCombination = $calculate->calculateMinimumChocobos(
+                weight: (int)$weightExpected,
+                chocobos: $weightsAvailable
+            );
+
+            $result[] = count($resultCombination) . ':' . implode(',', $resultCombination);
+
+        }
+
         $resultContent = implode(PHP_EOL, $result);
         file_put_contents($outputFilePath, $resultContent);
 
