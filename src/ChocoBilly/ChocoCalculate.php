@@ -10,6 +10,9 @@ final class ChocoCalculate
 
     public function combinationMinimumWeight(int $weight, array $weightsAvailable): array
     {
+        $weightsAvailable = array_filter($weightsAvailable, fn($w) => $w <= $weight);
+        rsort($weightsAvailable);
+
         $count = $weight + 1;
         $minWeightAvailable = array_fill(0, $count, self::MAX_WEIGHT);
         $prevWeight = array_fill(0, $count, null);
@@ -37,7 +40,7 @@ final class ChocoCalculate
             $currentWeight -= $prevWeight[$currentWeight];
         }
 
-        sort($result); //
+        sort($result);
         return $result;
     }
 }

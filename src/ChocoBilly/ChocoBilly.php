@@ -15,6 +15,8 @@ final readonly class ChocoBilly
 
     public function __invoke(string $inputFilePath, string $outputFilePath): void
     {
+        file_put_contents($outputFilePath, '');
+
         foreach ($this->readCases($inputFilePath) as $case) {
             [$weight, $weightsAvailable] = $case;
             $resultCombination = $this->calculate->combinationMinimumWeight(
